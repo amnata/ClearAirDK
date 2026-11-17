@@ -1,0 +1,164 @@
+{
+  "city": "Dakar",
+  "trained_at": "2026-11-17T06:55:04.917978+00:00",
+  "rows": 37632,
+  "target": "pm10",
+  "horizons": {
+    "6": {
+      "train_rows": 22532,
+      "calibration_rows": 7511,
+      "test_rows": 7511,
+      "test_start": "2026-01-06T19:00:00",
+      "test_end": "2026-11-15T17:00:00",
+      "baseline": {
+        "mae": 26.56225535880708,
+        "rmse": 40.84855261938162
+      },
+      "model": {
+        "mae": 25.15255562169297,
+        "rmse": 37.53546412568686
+      },
+      "skill_vs_persistence": 0.05307153771664597,
+      "coverage_80_raw": 0.6867261350019971,
+      "coverage_80": 0.798695246971109,
+      "conformal_width_added": 5.633599528359894,
+      "by_season": {
+        "harmattan": {
+          "rows": 2375,
+          "baseline_mae": 33.27536842105263,
+          "model_mae": 27.13598265500352
+        },
+        "hors_harmattan": {
+          "rows": 5136,
+          "baseline_mae": 23.45796339563863,
+          "model_mae": 24.235375091297218
+        }
+      },
+      "exceedance_100": {
+        "available": true,
+        "base_rate_train": 0.28217646014557074,
+        "brier_model": 0.11448207511909325,
+        "brier_climatology": 0.24887108209876835,
+        "brier_persistence": 0.1690853414991346,
+        "roc_auc": 0.9187836050538508
+      }
+    },
+    "12": {
+      "train_rows": 22528,
+      "calibration_rows": 7510,
+      "test_rows": 7510,
+      "test_start": "2026-01-06T14:00:00",
+      "test_end": "2026-11-15T11:00:00",
+      "baseline": {
+        "mae": 38.78760319573902,
+        "rmse": 57.1247704543955
+      },
+      "model": {
+        "mae": 34.66752502024743,
+        "rmse": 48.87862812080242
+      },
+      "skill_vs_persistence": 0.10622152017746211,
+      "coverage_80_raw": 0.6471371504660453,
+      "coverage_80": 0.7790945406125166,
+      "conformal_width_added": 8.447187174327537,
+      "by_season": {
+        "harmattan": {
+          "rows": 2374,
+          "baseline_mae": 46.13155012636901,
+          "model_mae": 34.36065035100793
+        },
+        "hors_harmattan": {
+          "rows": 5136,
+          "baseline_mae": 35.39302959501557,
+          "model_mae": 34.809370905133456
+        }
+      },
+      "exceedance_100": {
+        "available": true,
+        "base_rate_train": 0.2823153409090909,
+        "brier_model": 0.15911016592380783,
+        "brier_climatology": 0.24886409158672354,
+        "brier_persistence": 0.2572569906790945,
+        "roc_auc": 0.8457252667570982
+      }
+    },
+    "24": {
+      "train_rows": 22521,
+      "calibration_rows": 7507,
+      "test_rows": 7508,
+      "test_start": "2026-01-06T04:00:00",
+      "test_end": "2026-11-14T23:00:00",
+      "baseline": {
+        "mae": 43.118833244539154,
+        "rmse": 61.047609088204716
+      },
+      "model": {
+        "mae": 40.64831045358631,
+        "rmse": 55.22830608058358
+      },
+      "skill_vs_persistence": 0.057295678130755645,
+      "coverage_80_raw": 0.6229355354288759,
+      "coverage_80": 0.7735748534896111,
+      "conformal_width_added": 10.164087579419919,
+      "by_season": {
+        "harmattan": {
+          "rows": 2372,
+          "baseline_mae": 39.32736087689713,
+          "model_mae": 37.88021535853796
+        },
+        "hors_harmattan": {
+          "rows": 5136,
+          "baseline_mae": 44.8698792834891,
+          "model_mae": 41.92672197333995
+        }
+      },
+      "exceedance_100": {
+        "available": true,
+        "base_rate_train": 0.2826251054571289,
+        "brier_model": 0.18311828267159078,
+        "brier_climatology": 0.24884337065982573,
+        "brier_persistence": 0.2770378263185935,
+        "roc_auc": 0.7910122879400789
+      }
+    }
+  },
+  "drivers_24h": [
+    {
+      "feature": "pm10",
+      "mae_increase": 13.778256706453073
+    },
+    {
+      "feature": "dust",
+      "mae_increase": 1.1214616903723165
+    },
+    {
+      "feature": "pm2_5_mean72",
+      "mae_increase": 1.0968585479445732
+    },
+    {
+      "feature": "day_of_year_sin",
+      "mae_increase": 0.5969694155406321
+    },
+    {
+      "feature": "pm2_5",
+      "mae_increase": 0.4854811231183926
+    },
+    {
+      "feature": "pm2_5_lag72",
+      "mae_increase": 0.48129049917298045
+    },
+    {
+      "feature": "dust_mean72",
+      "mae_increase": 0.3318121447380733
+    },
+    {
+      "feature": "pm2_5_mean24",
+      "mae_increase": 0.2111851504667115
+    }
+  ],
+  "anomaly": {
+    "model": "IsolationForest",
+    "training_rows": 30105,
+    "interpretation": "Alerte statistique exploratoire, non diagnostic de poussière."
+  }
+}
