@@ -282,11 +282,18 @@ with t_sn:
                    "Chaque ville est un point de référence de modèle, pas une station.")
 
 # ---------------------------------------------------------------- Assistant IA
+# CHANGÉ : key_input est maintenant lu depuis les secrets (le champ a été supprimé)
+try:
+    key_input = st.secrets.get("GROQ_API_KEY", None)
+except Exception:
+    key_input = os.getenv("GROQ_API_KEY")
+
 with t_ai:
     st.header("Posez votre question")
     use_llm = assistant.llm_available(key_input or None)
+    # CHANGÉ : on ne parle plus de la barre latérale
     st.caption("Mode IA (Groq)" if use_llm else
-               "Mode hors-ligne : ajoutez une clé dans la barre latérale pour activer l'assistant IA.")
+               "Mode hors-ligne : réponses générées par des règles locales.")
     ctx = assistant.AirContext(city.name, level, pm10, pm25, PROFILES[profile_key],
                                peak_text, window_text)
     context_key = (city.name, profile_key)
@@ -313,12 +320,12 @@ with t_ai:
             st.markdown(answer)
             st.caption(f"Réponse générée par : {'Groq' if src == 'llm' else 'règles locales'}")
             if src != "llm" and use_llm and assistant.last_error:
-                st.warning("Le service Groq n'a pas répondu, réponse de secours affichée. "
-                           f"Détail : {assistant.last_error}")
+                # CHANGÉ : plus de détail technique brut affiché au jury
+                st.warning("Le service IA est momentanément indisponible, réponse de secours affichée.")
         st.session_state["chat"].append({"role": "assistant", "content": answer})
     st.caption("L'assistant explique et oriente ; il ne remplace pas un professionnel de santé.")
 
-# ---------------------------------------------------------------- Partager
+# ---------------------------------------------------------------- ---------------------------------------------------------------- Partager
 with t_share:
     st.header("Partager l'alerte avec vos proches")
     st.write("Un message court, prêt pour WhatsApp ou SMS, pour prévenir ceux qui n'ouvriront jamais ce tableau de bord.")
