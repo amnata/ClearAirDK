@@ -121,7 +121,7 @@ if fresh:
 
 next24 = future_p.head(24)
 peak_time = next24["pm10"].idxmax() if not next24["pm10"].dropna().empty else None
-best_today = best_outdoor_window(future_p.head(48), 2) if not future_p.empty else None
+best_today = risk.best_window_within(future_p.head(48), 2, 6, 19) if not future_p.empty else None
 window_text = (f"Créneau prévu le moins chargé : {best_today['start']:%d/%m %H:%M}–"
                f"{best_today['end']:%H:%M} (PM10 ≈ {best_today['mean_pm10']:.0f} µg/m³)."
                if best_today else "")
@@ -175,7 +175,7 @@ with t_now:
     st.subheader("Prévision expérimentale ClearAirDK (modèle entraîné localement)")
     if ml:
         rows = []
-        for h, v in ml.items():
+        for h, v in sorted(ml.items()):
             p = v.get("p_exceed")
             rows.append({"Dans": f"{h} h", "PM10 médian": f"{v['median']:.0f} µg/m³",
                          "Intervalle ≈80 %": f"{v['lower']:.0f} à {v['upper']:.0f}",
@@ -214,7 +214,7 @@ with t_plan:
         day_fc = future_p.loc[[s.date() == day for s in future_p.index]]
         if mode == "Une sortie":
             dur = st.selectbox("Durée (h)", [1, 2, 3, 4], index=1)
-            w = best_outdoor_window(day_fc, dur)
+            w = risk.best_window_within(day_fc, dur, 6, 19)
             if w is None:
                 st.warning("Données insuffisantes pour ce jour.")
             else:
@@ -293,6 +293,10 @@ with t_ai:
                "Mode hors-ligne : ajoutez une clé dans la barre latérale pour activer l'assistant IA.")
     ctx = assistant.AirContext(city.name, level, pm10, pm25, PROFILES[profile_key],
                                peak_text, window_text)
+    context_key = (city.name, profile_key)
+    if st.session_state.get("chat_context") != context_key:
+        st.session_state["chat"] = []
+        st.session_state["chat_context"] = context_key
     st.session_state.setdefault("chat", [])
     for msg in st.session_state["chat"]:
         with st.chat_message(msg["role"]):
