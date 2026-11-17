@@ -51,10 +51,6 @@ with st.sidebar:
     st.caption("Le profil adapte les conseils, jamais les mesures.")
     refresh = st.button("Actualiser les données")
     st.divider()
-    st.markdown("**Assistant IA (facultatif)**")
-    key_input = st.text_input("Clé API Groq", type="password",
-                              help="Sans clé, l'assistant répond avec des règles locales prudentes.")
-    st.caption("L'assistant ne reçoit que le contexte de qualité de l'air et votre profil.")
 
 paths = C.paths_for(city.slug)
 
