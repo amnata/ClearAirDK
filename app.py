@@ -194,8 +194,10 @@ with t_now:
                               city=city.name)
                 st.rerun()
         else:
-            st.info(f"Pas de données locales pour {city.name} : "
-                    f"`python train.py --city {city.name} --download`.")
+            st.info(f"La prévision ClearAirDK par apprentissage automatique est activée pour "
+                    f"Dakar, la ville pilote. Pour {city.name}, utilisez la prévision "
+                    f"Open-Meteo du graphique ci-dessus. L'extension à d'autres villes se fait "
+                    f"avec : `python train.py --city {city.name} --download`.")
     else:
         st.info(ml_msg or "Prévision masquée : la dernière donnée est trop ancienne.")
 
